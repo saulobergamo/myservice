@@ -10,6 +10,11 @@ import java.util.*
 @RequestMapping("student")
 class StudentController (private val studentService: StudentService){
 
+    @PostMapping
+    fun createStudent(@RequestBody student: StudentModel){
+        studentService.createStudent(student)
+    }
+
     @GetMapping("/{course}")
     fun readStudents(@PathVariable course: String): ResponseEntity<List<StudentModel>>{
         return ResponseEntity.ok(studentService.readStudents(course))
@@ -20,25 +25,18 @@ class StudentController (private val studentService: StudentService){
         return ResponseEntity.ok(studentService.readAllStudents())
     }
 
-    @PatchMapping("/{id}")
-    fun updateStudent(@PathVariable id: Long, @RequestBody student: StudentModel): ResponseEntity<StudentModel>{
+    @PutMapping("/{id}")
+    fun updateStudent(@PathVariable id: String, @RequestBody student: StudentModel): ResponseEntity<StudentModel>{
         return ResponseEntity.ok(studentService.updateStudent(id, student))
     }
 
     @DeleteMapping("/{id}")
-    fun deleteStudent(@PathVariable id: Long): ResponseEntity<Optional<StudentModel>> {
-       return ResponseEntity.ok(studentService.deleteStudent(id))
-    }
-
-
-
-    @PostMapping
-    fun createStudent(@RequestBody student: StudentModel): ResponseEntity<StudentModel>{
-        return ResponseEntity.ok(studentService.createStudent(student))
+    fun deleteStudent(@PathVariable id: String) {
+        studentService.deleteStudent(id)
     }
 
     @DeleteMapping
-    fun deleteAllStudents(): ResponseEntity<List<StudentModel>> {
+    fun deleteAllStudents(): ResponseEntity<Unit> {
         return ResponseEntity.ok(studentService.deleteAllStudents())
     }
 }

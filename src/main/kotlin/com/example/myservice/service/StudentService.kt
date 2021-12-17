@@ -2,15 +2,14 @@ package com.example.myservice.service
 
 import com.example.myservice.model.StudentModel
 import com.example.myservice.repositories.StudentRepository
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class StudentService(private val studentRepo: StudentRepository){
 
     fun createStudent(student: StudentModel): StudentModel {
         return studentRepo.save(student)
-
     }
 
     fun readStudents(course: String): List<StudentModel> {
@@ -20,25 +19,19 @@ class StudentService(private val studentRepo: StudentRepository){
     fun readAllStudents():List<StudentModel>{
         return studentRepo.findAll()
     }
-    fun updateStudent(id: Long, student: StudentModel): StudentModel {
-        val oldStudent = this.studentRepo.findById(id).orElse(null)
-        oldStudent.name = student.name
-        oldStudent.id = student.id
-        oldStudent.age = student.age
-        oldStudent.course = student.course
-        return this.studentRepo.save(oldStudent)
+
+    fun updateStudent(id: String, student: StudentModel): StudentModel? {
+        return if(studentRepo.existsById(id)){
+            this.studentRepo.save(student)
+        } else null
     }
 
-    fun deleteStudent(id: Long): Optional<StudentModel> {
-        val tempStudent = this.studentRepo.findById(id)
-        studentRepo.deleteById(id)
-        return tempStudent
+    fun deleteStudent(id: String) : ResponseEntity<Unit>{
+        return ResponseEntity.ok(studentRepo.deleteById(id))
     }
 
-    fun deleteAllStudents(): List<StudentModel>{
-        val listStudent = studentRepo.findAll()
+    fun deleteAllStudents(){
         studentRepo.deleteAll()
-        return listStudent
     }
 
 

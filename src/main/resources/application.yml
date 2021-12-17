@@ -1,4 +1,13 @@
+server:
+  port: 8080
+  servlet:
+    contextPath: /myservice
+
 spring:
   data:
     mongodb:
       uri: mongodb://admin:admin@localhost:27017/myservice?authSource=admin
+
+  application:
+    name: myservice
+
