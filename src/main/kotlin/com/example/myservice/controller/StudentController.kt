@@ -4,10 +4,9 @@ import com.example.myservice.model.StudentModel
 import com.example.myservice.service.StudentService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.*
 
 @RestController
-@RequestMapping("student")
+@RequestMapping("/student")
 class StudentController (private val studentService: StudentService){
 
     @PostMapping
