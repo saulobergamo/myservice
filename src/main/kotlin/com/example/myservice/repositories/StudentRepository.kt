@@ -10,4 +10,5 @@ interface StudentRepository : MongoRepository<StudentModel, Long> {
     fun deleteById(id: String)
     fun findById(id: String): StudentModel
     abstract fun existsById(id: String): Boolean
+    abstract fun existsByCourse(course: String): Boolean
 }

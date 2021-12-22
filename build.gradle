@@ -2,7 +2,7 @@ buildscript {
     ext {
         javaVersion = JavaVersion.VERSION_11
         kotlinVersion = "1.6.0"
-        springBootVersion = "2.6.1"
+        springBootVersion = "2.5.7"
         springCloudVersion = "2021.0.0"
         swaggerVersion = '3.0.0'
     }
@@ -43,8 +43,9 @@ dependencies {
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.13.0"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.0:"
-    implementation "io.springfox:springfox-boot-starter:3.0.0"
-    implementation "io.springfox:springfox-swagger-ui:3.0.0"
+    implementation "io.springfox:springfox-swagger-ui:$swaggerVersion"
+    implementation "io.springfox:springfox-boot-starter:$swaggerVersion"
+
 
     testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion"){
         exclude group: "org.mockito", module: "mockito-core"
