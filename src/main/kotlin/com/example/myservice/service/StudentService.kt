@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service
 @Service
 class StudentService(private val studentRepo: StudentRepository){
 
-    fun createStudent(student: StudentModel){
-        studentRepo.save(student)
+    fun createStudent(student: StudentModel): StudentModel? {
+        return studentRepo.save(student)
     }
 
     fun readStudents(course: String): List<StudentModel> {
         if(studentRepo.existsByCourse(course)){
             return studentRepo.findByCourse(course)
         }
-        throw NotFoundRunTime("Course doesn't have any student")
+        throw NotFoundRunTime("Course $course doesn't have any student")
     }
 
     fun readAllStudents():List<StudentModel>{
@@ -27,7 +27,7 @@ class StudentService(private val studentRepo: StudentRepository){
         if(studentRepo.existsById(id)){
             this.studentRepo.save(student)
         }
-        throw NotFoundRunTime("Student doesn't exist")
+        throw NotFoundRunTime("Student with ID: $id doesn't exist")
     }
 
 
@@ -35,7 +35,7 @@ class StudentService(private val studentRepo: StudentRepository){
         if(studentRepo.existsById(id)){
             return studentRepo.deleteById(id)
         }
-        throw NotFoundRunTime("Student doesn't exist")
+        throw NotFoundRunTime("Student with ID: $id doesn't exist")
     }
 
     fun deleteAllStudents() {

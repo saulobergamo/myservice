@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*
 class StudentController (private val studentService: StudentService){
 
     @PostMapping
-    fun createStudent(@RequestBody student: StudentModel): ResponseEntity<Unit>? {
+    fun createStudent(@RequestBody student: StudentModel): ResponseEntity<StudentModel?>? {
         return ResponseEntity.ok(studentService.createStudent(student))
     }
 

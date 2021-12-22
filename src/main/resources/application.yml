@@ -3,6 +3,11 @@ server:
   servlet:
     contextPath: /myservice
 
+#  error:
+##    include-message: always
+#    include-binding-errors: always
+#    include-exception: false
+
 spring:
   data:
     mongodb:
