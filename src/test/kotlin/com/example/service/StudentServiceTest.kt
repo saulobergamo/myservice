@@ -2,6 +2,7 @@ package com.example.service
 
 import com.example.TestRunner
 import com.example.mock.MockUtil.Companion.ValidStudent
+import com.example.mock.MockUtil.Companion.ValidStudentList
 import com.example.myservice.model.StudentModel
 import com.example.myservice.repositories.StudentRepository
 import com.example.myservice.service.StudentService
@@ -35,7 +36,16 @@ class StudentServiceTest : TestRunner() {
     }
 
     @Test
-    fun `Give a valid COURSE when calling readStudents THEN returns a list of students`() {
+    fun `GIVE a valid course WHEN calling readStudents THEN returns a list of students`() {
+        every { studentRepository.existsByCourse(any()) } returns true
+        every { studentRepository.findByCourse(any()) } returns ValidStudentList
 
+        val response = studentService.readStudents("Math")
+        val student = StudentModel("12ab", "Joao", "Math", 111)
+
+        assertEquals(student.id, response[0]?.id)
+        assertEquals(student.name, response[0]?.name)
+        assertEquals(student.course, response[0]?.course)
+        assertEquals(student.age, response[0]?.age)
     }
 }

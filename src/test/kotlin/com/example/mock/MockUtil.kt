@@ -10,5 +10,15 @@ class MockUtil {
             course = "Math",
             age = 111
         )
+
+        val ValidStudentList = listOf(
+            StudentModel(
+                id = "12ab",
+                name = "Joao",
+                course = "Math",
+                age = 111
+            )
+        )
     }
+
 }
