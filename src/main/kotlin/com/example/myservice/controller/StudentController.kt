@@ -15,8 +15,18 @@ class StudentController (private val studentService: StudentService){
         return ResponseEntity.ok(studentService.createStudent(student))
     }
 
+    @GetMapping("/id/{id}")
+    fun readStudent(@PathVariable id: String): ResponseEntity<StudentModel>?{
+        return ResponseEntity.ok(studentService.readStudentById(id))
+    }
+
+    @GetMapping("/name/{name}")
+    fun readStudentsByName(@PathVariable name: String): ResponseEntity<List<StudentModel>> {
+        return ResponseEntity.ok(studentService.readStudentByName(name))
+    }
+
     @GetMapping("/{course}")
-    fun readStudents(@PathVariable course: String): ResponseEntity<List<StudentModel>>? {
+    fun readStudents(@PathVariable course: String): ResponseEntity<List<StudentModel>> {
         return ResponseEntity.ok(studentService.readStudents(course))
     }
 

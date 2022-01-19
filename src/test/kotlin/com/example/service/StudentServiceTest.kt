@@ -9,8 +9,7 @@ import com.example.myservice.service.StudentService
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class StudentServiceTest : TestRunner() {
@@ -47,5 +46,20 @@ class StudentServiceTest : TestRunner() {
         assertEquals(student.name, response[0]?.name)
         assertEquals(student.course, response[0]?.course)
         assertEquals(student.age, response[0]?.age)
+    }
+
+    @Test
+    fun `GIVE a valid name WHEN calling readStudentByName THEN return a student`() {
+        every { studentRepository.findByName(any())} returns ValidStudentList
+
+        val response = studentService.readStudentByName("Joao")
+        val student = StudentModel("12ab", "Joao", "Math", 111)
+
+        assertEquals(student.id, response?.get(0)?.id)
+        assertEquals(student.id, response?.get(0)?.id)
+        assertEquals(student.name, response?.get(0)?.name)
+        assertEquals(student.course, response?.get(0)?.course)
+        assertEquals(student.age, response?.get(0)?.age)
+
     }
 }

@@ -6,25 +6,33 @@ import com.example.myservice.repositories.StudentRepository
 import org.springframework.stereotype.Service
 
 @Service
-class StudentService(private val studentRepo: StudentRepository){
+class StudentService(private val studentRepo: StudentRepository) {
 
     fun createStudent(student: StudentModel): StudentModel? {
         return studentRepo.save(student)
     }
 
     fun readStudents(course: String): List<StudentModel> {
-        if(studentRepo.existsByCourse(course)){
+        if (studentRepo.existsByCourse(course)) {
             return studentRepo.findByCourse(course)
         }
         throw NotFoundRunTime("Course $course doesn't have any student")
     }
 
-    fun readAllStudents():List<StudentModel>{
+    fun readStudentById(id: String): StudentModel? {
+        return studentRepo.findById(id)
+    }
+
+    fun readStudentByName(name: String): List<StudentModel>? {
+        return studentRepo.findByName(name)
+    }
+
+    fun readAllStudents(): List<StudentModel> {
         return studentRepo.findAll()
     }
 
     fun updateStudent(id: String, student: StudentModel) {
-        if(studentRepo.existsById(id)){
+        if (studentRepo.existsById(id)) {
             this.studentRepo.save(student)
         }
         throw NotFoundRunTime("Student with ID: $id doesn't exist")
@@ -32,7 +40,7 @@ class StudentService(private val studentRepo: StudentRepository){
 
 
     fun deleteStudent(id: String) {
-        if(studentRepo.existsById(id)){
+        if (studentRepo.existsById(id)) {
             return studentRepo.deleteById(id)
         }
         throw NotFoundRunTime("Student with ID: $id doesn't exist")
